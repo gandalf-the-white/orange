@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: webserver
+    version: v1
+  name: webserverv1
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: webserver
+      version: v1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: webserver
+        version: v1
+    spec:
+      affinity: {}
+      containers:
+        - env:
+            - name: SERVERCONTNET
+              value: WebServer V1
+          image: index.docker.io/mcasperson/simpleserver:0.1.12
+          imagePullPolicy: IfNotPresent
+          name: simpleserver
+          ports:
+            - containerPort: 3030
+              name: web
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 25m
+            requests:
+              cpu: 25m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webserver
+spec:
+  ports:
+    - name: http-web
+      port: 80
+      protocol: TCP
+      targetPort: 3030
+  selector:
+    app: webserver
+  type: ClusterIP
