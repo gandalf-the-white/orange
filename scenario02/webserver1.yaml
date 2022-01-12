@@ -5,6 +5,7 @@ metadata:
     app: webserver
     version: v1
   name: webserverv1
+  namespace: orange
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
@@ -43,6 +44,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: webserver
+  namespace: orange
   labels:
     service: webserver
 spec:
@@ -59,6 +61,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: webserverv1
+  namespace: orange
   labels:
     service: webserver1
 spec:
