@@ -43,6 +43,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: webserver
+  labels:
+    service: webserver
 spec:
   ports:
     - name: http-web
@@ -51,4 +53,21 @@ spec:
       targetPort: 3030
   selector:
     app: webserver
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webserverv1
+  labels:
+    service: webserver1
+spec:
+  ports:
+    - name: http-web
+      port: 80
+      protocol: TCP
+      targetPort: 3030
+  selector:
+    app: webserver
+    version: v1
   type: ClusterIP
