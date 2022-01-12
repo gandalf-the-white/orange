@@ -29,6 +29,8 @@ spec:
               cpu: 25m
             requests:
               cpu: 25m
+      nodeSelector:
+        color: red
 ---
 apiVersion: apps/v1
 kind: Deployment
