@@ -1,34 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: proxy
   labels:
-    app: webserver
-    version: v3
-  name: webserverv3
+    version: v1
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: webserver
-      version: v3
-  strategy:
-    type: Recreate
+      app: proxy
   template:
     metadata:
       labels:
-        app: webserver
-        version: v3
+        app: proxy
     spec:
-      affinity: {}
       containers:
         - env:
-            - name: SERVERCONTNET
-              value: WebServer V3
-          image: index.docker.io/mcasperson/simpleserver:0.1.12
+            - name: PROXYURL
+              value: http://webserver
+          image: index.docker.io/mcasperson/simpleproxy:0.1.21
           imagePullPolicy: IfNotPresent
-          name: simpleserver
+          name: proxy
           ports:
             - containerPort: 3030
               name: web
@@ -38,18 +31,21 @@ spec:
               cpu: 25m
             requests:
               cpu: 25m
+      nodeSelector:
+        color: red
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: webserverv3
+  name: proxy
+  labels:
+    service: proxy
 spec:
   ports:
-    - name: http-web
+    - name: web
       port: 80
       protocol: TCP
       targetPort: 3030
   selector:
-    app: webserver
-    version: v3
+    app: proxy
   type: ClusterIP
