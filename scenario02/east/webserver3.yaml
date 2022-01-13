@@ -3,8 +3,8 @@ kind: Deployment
 metadata:
   labels:
     app: webserver
-    version: v1
-  name: webserverv1
+    version: v3
+  name: webserverv3
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
@@ -12,20 +12,20 @@ spec:
   selector:
     matchLabels:
       app: webserver
-      version: v1
+      version: v3
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         app: webserver
-        version: v1
+        version: v3
     spec:
       affinity: {}
       containers:
         - env:
             - name: SERVERCONTNET
-              value: WebServer V1
+              value: WebServer V3
           image: index.docker.io/mcasperson/simpleserver:0.1.12
           imagePullPolicy: IfNotPresent
           name: simpleserver
@@ -58,10 +58,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: webserverv1
+  name: webserverv3
   namespace: orange
   labels:
-    service: webserver1
+    service: webserver3
 spec:
   ports:
     - name: http-web
@@ -70,5 +70,5 @@ spec:
       targetPort: 3030
   selector:
     app: webserver
-    version: v1
+    version: v3
   type: ClusterIP
