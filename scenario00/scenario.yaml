@@ -86,7 +86,7 @@ metadata:
   name: webserverv2
 spec:
   progressDeadlineSeconds: 600
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: webserver
