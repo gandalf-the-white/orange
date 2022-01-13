@@ -127,6 +127,7 @@ spec:
                 values:
                 - red
                 - cyan
+                - yellow
 ---
 apiVersion: v1
 kind: Service
