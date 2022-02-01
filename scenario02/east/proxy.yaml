@@ -48,4 +48,4 @@ spec:
       targetPort: 3030
   selector:
     app: proxy
-  type: LoadBalancer
+  type: ClusterIP
