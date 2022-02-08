@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: proxy
+spec:
+  gateways:
+  - istio-system/default-gateway
+  hosts:
+  - bebop.lan
+  http:
+  - match:
+    - uri:
+        prefix: /amazon
+    route:
+    - destination:
+        host: proxy
