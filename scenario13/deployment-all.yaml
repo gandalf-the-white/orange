@@ -69,7 +69,7 @@ spec:
         app: webserver
         version: v1
     spec:
-       affinity:
+      affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
@@ -120,7 +120,7 @@ spec:
         app: webserver
         version: v2
     spec:
-       affinity:
+      affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
