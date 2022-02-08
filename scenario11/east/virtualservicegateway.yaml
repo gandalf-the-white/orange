@@ -10,7 +10,7 @@ spec:
   http:
   - match:
     - uri:
-        prefix: /function1
+        prefix: /wanadoo
     route:
     - destination:
         host: function1.wanadoo.svc.cluster.local
