@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: function2
+  labels:
+    app: function2
+    version: v4
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      app: function2
+      version: v4
+  template:
+    metadata:
+      labels:
+        app: function2
+        version: v4
+    spec:
+      containers:
+        - env:
+            - name: PROXYURL
+              value: http://webserver
+          image: index.docker.io/mcasperson/simpleproxy:0.1.21
+          imagePullPolicy: IfNotPresent
+          name: function2
+          ports:
+            - containerPort: 3030
+              name: web
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 25m
+            requests:
+              cpu: 25m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: function2
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 3030
+  selector:
+    app: function2
+  type: ClusterIP
