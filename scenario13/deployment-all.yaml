@@ -18,6 +18,17 @@ spec:
         app: proxy
         version: v4
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: color
+                operator: In
+                values:
+                - white
+                - blue
+                - green
       containers:
         - env:
             - name: PROXYURL
@@ -58,7 +69,17 @@ spec:
         app: webserver
         version: v1
     spec:
-      affinity: {}
+       affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: color
+                operator: In
+                values:
+                - white
+                - blue
+                - green
       containers:
         - env:
             - name: SERVERCONTNET
@@ -99,7 +120,17 @@ spec:
         app: webserver
         version: v2
     spec:
-      affinity: {}
+       affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: color
+                operator: In
+                values:
+                - white
+                - blue
+                - green
       containers:
         - env:
             - name: SERVERCONTNET
